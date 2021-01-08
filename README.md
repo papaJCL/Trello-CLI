@@ -43,7 +43,7 @@ website directly from a single command in the terminal. The program uses Click f
 ![example file](plcaeholder.png)
 
 # Example Output
-![Output](plcaeholder.png)
+![Output](screenshot.png)
 
 
 # Time Taken
