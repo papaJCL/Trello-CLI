@@ -39,8 +39,10 @@ website directly from a single command in the terminal. The program uses Click f
 - ```cd trello/``` 
 - ```trello``` 
 
-# Keys.txt example file
-![example file](plcaeholder.png)
+# Keys.txt Layout
+- First Line - key
+- Second Line - token
+- Third Line - boardID
 
 # Example Output
 ![Output](screenshot.png)
