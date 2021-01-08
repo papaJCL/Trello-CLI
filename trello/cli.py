@@ -2,46 +2,80 @@ import click
 import requests
 import json
 
-@click.command()
-
-def cli():
-    keys_file = open("keys.txt")
+def read_file(file):
+    keys_file = open(file)
+    
     lines = keys_file.readlines()
     key = lines[0].rstrip()
     token = lines[1].rstrip()
     board = lines[2].rstrip()
 
-    boardurl = "https://api.trello.com/1/boards/" + board + "/lists"
-    labelurl = "https://api.trello.com/1/boards/" + board + "/labels"
+    return key, token, board
+
+def getURLs(boardID):
+
+    boardUrl = "https://api.trello.com/1/boards/" + boardID + "/lists"
+    labelUrl = "https://api.trello.com/1/boards/" + boardID + "/labels"
     cardUrl = "https://api.trello.com/1/cards"
 
+    return boardUrl, labelUrl, cardUrl
+
+def basicQuery(key, token):
     query = {
         'key': key,
         'token': token
     }
+    return query
 
+def getRequest(URL, query):
     boardResponse = requests.request(
         "GET",
-        boardurl,
+        URL,
         params=query
     )
+    return boardResponse
 
-    labelResponse = requests.request(
-        "GET",
-        labelurl,
-        params=query
+def checkRequest(request, typeofRequest):
+    if request.ok:
+        print("Successfully connected to " + typeofRequest + " API " )
+    else:
+        print ('Could not connect to API!')
+
+def postQuery(key, token, column, comments, idLabelsArray):
+    postQuery = {
+        'key': key,
+        'token': token,
+        'idList': column,
+        'name': comments,
+        'idLabels': idLabelsArray
+    }
+    return postQuery
+
+def postResponse(cardURL, listQuery):
+    postRequest = requests.request(
+        "POST",
+        cardURL,
+        params=listQuery
     )
+    return postRequest
+    
 
-    if boardResponse.ok:
-        print("Successfully connected to board API " , boardResponse)
-    else:
-        print ('Could not connect to board API!')
+@click.command()
+def main():
 
-    if labelResponse.ok:
-        print("Successfully connected to label API" , labelResponse)
-    else:
-        print ('Could not connect to label API!')
+    key, token, board = read_file("keys.txt")
 
+    boardURL, labelURL, cardURL = getURLs(board)
+
+    query = basicQuery(key, token)
+
+    boardResponse = getRequest(boardURL, query)
+
+    labelResponse = getRequest(labelURL, query)
+
+    checkRequest(boardResponse, "board")
+
+    checkRequest(labelResponse, "label")
 
     print('Below are a list of columns you can add a card too')
 
@@ -62,31 +96,20 @@ def cli():
     labels = click.prompt(
         'Please enter the ID #s corresponding with the label you want added seperated by commas')
   
-
     idLabelsArray = []
     x = labels.split(',')
-    for i in range(len(x)):  # Use `xrange` for python 2.
+    for i in range(len(x)):  
         idLabelsArray.append([x[i].replace(' ','')])
 
-    listQuery = {
-        'key': key,
-        'token': token,
-        'idList': column,
-        'name': comments,
-        'idLabels': idLabelsArray
-    }
+    listQuery = postQuery(key, token, column, comments, idLabelsArray)
 
-    postResponse = requests.request(
-        "POST",
-        cardUrl,
-        params=listQuery
-    )
+    addingCardPost = postResponse(cardURL, listQuery)
 
-    if postResponse.ok:
-        print("Successfully posted to website " , postResponse)
-    else:
-        print ('Could not connect to board API!')
+    checkRequest(addingCardPost , "adding to card")
 
+# ---------------------------------------------------------------
+@click.group()
+def cli():
+    pass
 
-
-
+main()
