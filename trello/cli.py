@@ -11,10 +11,6 @@ def cli():
     token = lines[1].rstrip()
     board = lines[2].rstrip()
 
-    print("Key is " , key)
-    print("token is " , token)
-    print("board is " , token)
-
     boardurl = "https://api.trello.com/1/boards/" + board + "/lists"
     labelurl = "https://api.trello.com/1/boards/" + board + "/labels"
     cardUrl = "https://api.trello.com/1/cards"
@@ -36,9 +32,19 @@ def cli():
         params=query
     )
 
-    print(boardResponse)
+    if boardResponse.ok:
+        print("Successfully connected to board API " , boardResponse)
+    else:
+        print ('Could not connect to board API!')
 
-    print(labelResponse)
+    if labelResponse.ok:
+        print("Successfully connected to label API" , labelResponse)
+    else:
+        print ('Could not connect to label API!')
+
+
+    
+
 
 
 
