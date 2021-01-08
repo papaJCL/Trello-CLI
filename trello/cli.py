@@ -53,6 +53,16 @@ def cli():
         'Please enter the ID # corresponding with the column you want to add to')
     comments = click.prompt('Type in what comments you want to add')
 
+    print('Below are a list that show what labels you can add')
+
+    labelResponse_data = labelResponse.json()
+    for i in labelResponse_data:
+        print('Name: ' + i['name'] + '\t\t\t' + 'ID : ' + i['id'] + '\t\t')
+
+    labels = click.prompt(
+        'Please enter the ID #s corresponding with the label you want added seperated by commas')
+
+
 
 
 
