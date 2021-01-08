@@ -8,6 +8,7 @@ website directly from a single command in the terminal. The program uses Click f
 - Python3
 - Pip3
 - Venv(For Virtual Environment)
+- Access to Trello API(key, token, boardID)
 
 # Getting Started (No Virtual Environment)
 1. Install by typing in terminal 
