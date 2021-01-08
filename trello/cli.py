@@ -61,7 +61,31 @@ def cli():
 
     labels = click.prompt(
         'Please enter the ID #s corresponding with the label you want added seperated by commas')
+  
 
+    idLabelsArray = []
+    x = labels.split(',')
+    for i in range(len(x)):  # Use `xrange` for python 2.
+        idLabelsArray.append([x[i].replace(' ','')])
+
+    listQuery = {
+        'key': key,
+        'token': token,
+        'idList': column,
+        'name': comments,
+        'idLabels': idLabelsArray
+    }
+
+    postResponse = requests.request(
+        "POST",
+        cardUrl,
+        params=listQuery
+    )
+
+    if postResponse.ok:
+        print("Successfully posted to website " , postResponse)
+    else:
+        print ('Could not connect to board API!')
 
 
 
