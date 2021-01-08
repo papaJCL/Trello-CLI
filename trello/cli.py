@@ -43,7 +43,15 @@ def cli():
         print ('Could not connect to label API!')
 
 
-    
+    print('Below are a list of columns you can add a card too')
+
+    boardResponse_data = boardResponse.json()
+    for i in boardResponse_data:
+        print('Name: ' + i['name'] + '\t' + 'ID : ' + i['id'])
+
+    column = click.prompt(
+        'Please enter the ID # corresponding with the column you want to add to')
+    comments = click.prompt('Type in what comments you want to add')
 
 
 
