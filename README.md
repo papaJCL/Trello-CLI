@@ -17,7 +17,7 @@ website directly from a single command in the terminal. The program uses Click f
 3. Build the project 
 - ```pip3 install --editable .``` 
 4. Open the keys.txt file in /trello directory and add your key, token, and board ID # from trello.(Example shown below)
-5. Once in the trello directory type Trello in the console ```trello``` and follow the instructions 
+5. Once in the trello directory type trello in the console ```trello``` and follow the instructions 
     - If the Terminal says it doesn't recognize the command "Trello" it means you need to add a $PATH line to your .bashrc file
         - Open up the .bashrc file in whichever editor you choose ```vi ~/.bashrc```
         - Add this line to the bottom of the file 
@@ -41,6 +41,17 @@ website directly from a single command in the terminal. The program uses Click f
 
 # Keys.txt example file
 ![example file](plcaeholder.png)
+
+# Example Output
+![Output](plcaeholder.png)
+
+
+# Time Taken
+- Organizing and Planning(Finding what CLI I wanted to use and researching Trello API) 1-1.5 Hours
+- Coding 2 Hours
+- Cleanup and writing ReadME 45 Minutes
+- Estimated Total ~4.5 hours
+
 
 
 # Next Development Steps
